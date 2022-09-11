@@ -10,7 +10,7 @@ import { Employee } from './employee';
 })
 export class AppComponent implements OnInit {
 
-  public employees!: Employee[];
+  public employeeList!: Employee[];
 
   constructor(private _appService: AppService) { }
 
@@ -19,14 +19,18 @@ export class AppComponent implements OnInit {
   }
 
   public getEmployees(): void {
-    this._appService.getEmployees().subscribe(
-      (response: Employee[]) => {
-        this.employees = response;
+    this._appService.getEmployees().subscribe({
+      next: (response: Employee[]) => {
+        this.employeeList = response;
       },
-      (error: HttpErrorResponse) => {
+      error: (error: HttpErrorResponse) => {
         console.error(error.message);
+      },
+      complete: () => {
+        console.info('getEmployees API call complete successfully!');
       }
-    );
+    });
   }
+
 
 }
