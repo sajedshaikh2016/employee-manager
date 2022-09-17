@@ -1,4 +1,4 @@
-<div class="container-full">
+<div class="container-full" id="main-container">
 
   <div class="row">
     <div class="col-md-12">
@@ -20,7 +20,7 @@
           <div class="collapse navbar-collapse" id="navbar-toggler">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Add Employee</a>
+                <a class="nav-link" (click)="onOpenModal(null, 'add')">Add Employee</a>
               </li>
             </ul>
 
@@ -40,7 +40,7 @@
   <div class="row">
 
     <!-- Employee cards starts here -->
-    <div class="col-sm-2 p-4" *ngFor="let employee of employeeList">
+    <div class="col-sm-3 col-md-3 p-4" *ngFor="let employee of employeeList">
       <div class="card">
         <img src="{{employee?.imageUrl}}" class="card-img-top" alt="employee-image">
         <div class="card-body">
@@ -49,8 +49,12 @@
           <p class="card-text">{{employee?.email}}</p>
           <p class="card-text">{{employee?.phone}}</p>
           <div class="d-flex justify-content-center btn-group" role="group" aria-label="buttons group">
-            <button class="btn btn-sm btn-primary" type="button">Edit</button>
-            <button class="btn btn-sm btn-secondary" type="button">Delete</button>
+            <button class="btn btn-sm btn-primary" type="button" (click)="onOpenModal(employee, 'edit')">
+              Edit
+            </button>
+            <button class="btn btn-sm btn-secondary" type="button" (click)="onOpenModal(employee, 'delete')">
+              Delete
+            </button>
           </div>
         </div>
       </div>
@@ -58,5 +62,113 @@
     <!-- Employee cards ends here -->
 
   </div>
+
+
+  <!-- Add employee modal starts here -->
+  <div class="modal fade" id="addEmployeeModal" tabindex="-1" aria-labelledby="addEmployeeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addEmployeeModalLabel">Add Employee</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" name="name" class="form-control" id="name" placeholder="Name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" name="email" class="form-control" id="email" placeholder="Email" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Job title</label>
+            <input type="text" name="jobTitle" class="form-control" id="jobTile" placeholder="Job title" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="text" name="phone" class="form-control" id="phone" placeholder="Phone" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Image URL</label>
+            <input type="text" name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="add-employee-form" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Add employee modal ends here -->
+
+
+  <!-- Edit employee modal starts here -->
+  <div class="modal fade" id="updateEmployeeModal" tabindex="-1" aria-labelledby="employeeEditModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateEmployeeModalLabel">
+            Edit Employee {{editEmployee ? editEmployee.name : 'EMPLOYEE NAME'}}
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" name="name" class="form-control" id="name" placeholder="Name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" name="email" class="form-control" id="email" placeholder="Email" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Job title</label>
+            <input type="text" name="jobTitle" class="form-control" id="jobTile" placeholder="Job title" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="text" name="phone" class="form-control" id="phone" placeholder="Phone" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Image URL</label>
+            <input type="text" name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="add-employee-form" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Edit employee modal ends here -->
+
+
+
+
+  <!-- Delete employee modal starts here -->
+  <div class="modal fade" id="deleteEmployeeModal" tabindex="-1" aria-labelledby="deleteModelLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModelLabel">Delete Employee</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete employee {{ deleteEmployee ? deleteEmployee.name : 'EMPLOYEE NAME'}}?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Delete employee modal ends here -->
+
 
 </div>

@@ -11,6 +11,8 @@ import { Employee } from './employee';
 export class AppComponent implements OnInit {
 
   public employeeList!: Employee[];
+  public editEmployee!: Employee;
+  public deleteEmployee!: Employee;
 
   constructor(private _appService: AppService) { }
 
@@ -31,6 +33,33 @@ export class AppComponent implements OnInit {
       }
     });
   }
+
+  public onOpenModal(employee: Employee | any, mode: string): void {
+    const container = document.getElementById('main-container');
+    const button = document.createElement('button');
+    if (button) {
+      button.type = 'button';
+      button.style.display = 'none';
+      button.setAttribute('data-bs-toggle', 'modal');
+    }
+    if (mode === 'add') {
+      button.setAttribute('data-bs-target', '#addEmployeeModal');
+    }
+    if (mode === 'edit') {
+      this.editEmployee = employee;
+      button.setAttribute('data-bs-target', '#updateEmployeeModal');
+    }
+    if (mode === 'delete') {
+      this.deleteEmployee = employee;
+      button.setAttribute('data-bs-target', '#deleteEmployeeModal');
+    }
+    if (container) {
+      container.appendChild(button);
+    }
+    button.click();
+  }
+
+
 
 
 }
