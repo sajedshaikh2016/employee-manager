@@ -1,3 +1,62 @@
-<div *ngFor="let employee of employeeList">
-  <div>{{employee.name}}</div>
+<div class="container-full">
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <!-- Navigation bar starts here -->
+      <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+
+          <!-- Small view port sandwich button starts here -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-toggler"
+            aria-controls="navbar-toggler" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <!-- Small view port sandwich button ends here -->
+
+          <a class="navbar-brand" href="#">Employee Manager</a>
+
+          <!-- Navigation bar menus starts here -->
+          <div class="collapse navbar-collapse" id="navbar-toggler">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Add Employee</a>
+              </li>
+            </ul>
+
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search employees" aria-label="Search">
+            </form>
+          </div>
+          <!-- Navigation bar menus ends here -->
+
+        </div>
+      </nav>
+      <!-- Navigation bar ends here -->
+
+    </div>
+  </div>
+
+  <div class="row">
+
+    <!-- Employee cards starts here -->
+    <div class="col-sm-2 p-4" *ngFor="let employee of employeeList">
+      <div class="card">
+        <img src="{{employee?.imageUrl}}" class="card-img-top" alt="employee-image">
+        <div class="card-body">
+          <h5 class="card-title">{{employee?.name}}</h5>
+          <p class="card-text">{{employee?.jobTitle}}</p>
+          <p class="card-text">{{employee?.email}}</p>
+          <p class="card-text">{{employee?.phone}}</p>
+          <div class="d-flex justify-content-center btn-group" role="group" aria-label="buttons group">
+            <button class="btn btn-sm btn-primary" type="button">Edit</button>
+            <button class="btn btn-sm btn-secondary" type="button">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Employee cards ends here -->
+
+  </div>
+
 </div>
